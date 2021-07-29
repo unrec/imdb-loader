@@ -1,0 +1,19 @@
+server.port: 8082
+
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: create-drop
+  datasource:
+    driverClassName: org.h2.Driver
+    url: "jdbc:h2:mem:library;\
+                     DB_CLOSE_DELAY=-1;\
+                     DB_CLOSE_ON_EXIT=FALSE"
+    username: user
+    password: pass
+  liquibase:
+    enabled: false
+  h2:
+    console:
+      enabled: true
+      path: /db

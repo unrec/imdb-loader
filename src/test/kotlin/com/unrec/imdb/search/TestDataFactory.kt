@@ -1,5 +1,7 @@
 package com.unrec.imdb.search
 
+import com.unrec.imdb.search.entity.BasicsEntity
+
 object TestDataFactory {
 
     val basicsTestString =
@@ -17,4 +19,15 @@ object TestDataFactory {
         tt0000010	short	Leaving the Factory	La sortie de l'usine Lumière à Lyon	0	1895	\N	1	Documentary,Short
     """.trimIndent()
 
+    fun testBasicsEntity() = BasicsEntity(
+        titleId = 110912,
+        titleType = "movie",
+        primaryTitle = "Pulp Fiction",
+        originalTitle = "Pulp Fiction",
+        isAdult = true,
+        startYear = 1994,
+        endYear = null,
+        runtimeMinutes = 154,
+        genres = "Crime, Drama"
+    )
 }
