@@ -19,6 +19,14 @@ object TestDataFactory {
         tt0000010	short	Leaving the Factory	La sortie de l'usine Lumière à Lyon	0	1895	\N	1	Documentary,Short
     """.trimIndent()
 
+    val wrongBasicsTestString =
+        """
+        tconst	titleType	primaryTitle	originalTitle	isAdult	startYear	endYear	runtimeMinutes	genres
+        tt0000001	Carmencita	Carmencita	0	1894	\N	1	Documentary,Short
+        tt0000002	short	Le clown et ses chiens	Le clown et ses chiens	0	1892	\N	5	Animation,Short
+    """.trimIndent()
+
+
     fun testBasicsEntity() = BasicsEntity(
         titleId = 110912,
         titleType = "movie",
