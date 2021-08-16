@@ -1,6 +1,7 @@
 package com.unrec.imdb.search
 
 import com.unrec.imdb.search.entity.BasicsEntity
+import com.unrec.imdb.search.model.BasicsRecord
 
 object TestDataFactory {
 
@@ -27,12 +28,24 @@ object TestDataFactory {
     """.trimIndent()
 
 
+    fun testBasicsRecord() = BasicsRecord(
+        tconst ="tt0110912",
+        titleType = "movie",
+        primaryTitle = "Pulp Fiction",
+        originalTitle = "Pulp Fiction",
+        isAdult = "0",
+        startYear = "1994",
+        endYear = "\\N",
+        runtimeMinutes = "154",
+        genres = "Crime, Drama"
+    )
+
     fun testBasicsEntity() = BasicsEntity(
         titleId = 110912,
         titleType = "movie",
         primaryTitle = "Pulp Fiction",
         originalTitle = "Pulp Fiction",
-        isAdult = true,
+        isAdult = false,
         startYear = 1994,
         endYear = null,
         runtimeMinutes = 154,
