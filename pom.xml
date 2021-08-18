@@ -65,13 +65,18 @@
       <version>${camel.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-jpa</artifactId>
+      <groupId>org.apache.camel.springboot</groupId>
+      <artifactId>camel-quartz-starter</artifactId>
       <version>${camel.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel.springboot</groupId>
       <artifactId>camel-cron-starter</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jpa</artifactId>
       <version>${camel.version}</version>
     </dependency>
     <dependency>
@@ -135,6 +140,11 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>io.github.microutils</groupId>
+      <artifactId>kotlin-logging</artifactId>
+      <version>1.12.5</version>
     </dependency>
 
     <!--test-->
