@@ -10,8 +10,5 @@ class EntityMapperTest {
     @Test
     fun `Map Basics Record to Entity`() {
         assertEquals(testBasicsEntity(), testBasicsRecord().toEntity())
-        val expected = testBasicsEntity()
-        val actual = testBasicsRecord().toEntity()
-        assertEquals(expected, actual)
     }
 }

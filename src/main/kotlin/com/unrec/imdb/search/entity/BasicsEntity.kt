@@ -13,7 +13,7 @@ class BasicsEntity(
     val primaryTitle: String,
     val originalTitle: String,
     val isAdult: Boolean?,
-    val startYear: Int,
+    val startYear: Int?,
     val endYear: Int?,
     val runtimeMinutes: Int?,
     val genres: String
@@ -41,7 +41,7 @@ class BasicsEntity(
         result = 31 * result + primaryTitle.hashCode()
         result = 31 * result + originalTitle.hashCode()
         result = 31 * result + (isAdult?.hashCode() ?: 0)
-        result = 31 * result + startYear
+        result = 31 * result + (endYear ?: 0)
         result = 31 * result + (endYear ?: 0)
         result = 31 * result + (runtimeMinutes ?: 0)
         result = 31 * result + genres.hashCode()

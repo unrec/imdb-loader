@@ -11,7 +11,7 @@ fun BasicsRecord.toEntity(): BasicsEntity {
         this.primaryTitle,
         this.originalTitle,
         convertBoolean(this.isAdult),
-        this.startYear.toInt(),
+        convertInteger(this.startYear),
         convertInteger(this.endYear),
         convertInteger(this.runtimeMinutes),
         this.genres
