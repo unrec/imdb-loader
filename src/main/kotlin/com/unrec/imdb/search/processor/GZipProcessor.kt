@@ -1,6 +1,5 @@
 package com.unrec.imdb.search.processor
 
-import com.unrec.imdb.search.parser.impl.BasicsParser
 import lombok.RequiredArgsConstructor
 import mu.KotlinLogging
 import org.apache.camel.Body
@@ -15,7 +14,7 @@ import kotlin.system.measureTimeMillis
 
 @RequiredArgsConstructor
 @Component
-class GZipProcessor(private val parser: BasicsParser) {
+class GZipProcessor {
 
     private val logger = KotlinLogging.logger {}
     private val gzExtension = ".tsv.gz"
@@ -36,6 +35,6 @@ class GZipProcessor(private val parser: BasicsParser) {
         val gis = GZIPInputStream(input)
         val timeInMillis = measureTimeMillis { Files.copy(gis, unzippedFile) }
         logger.info { "Unzipping $filePath took $timeInMillis ms" }
-        exchange.setProperty("unzippedFile", unzippedFile.toAbsolutePath())
+        exchange.setProperty("unzippedFile", unzippedFile.toAbsolutePath().toString())
     }
 }

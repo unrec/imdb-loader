@@ -4,6 +4,14 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate.ddl-auto: create-drop
+    properties:
+      hibernate:
+        jdbc.lob.non_contextual_creation: true
+        generate_statistics: true
+        jdbc.batch_size: 30
+        order_inserts: true
+        cache.use_second_level_cache: false
+
   datasource:
     driverClassName: org.h2.Driver
     url: "jdbc:h2:mem:library;\
