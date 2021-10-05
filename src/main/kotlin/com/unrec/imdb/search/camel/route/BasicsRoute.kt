@@ -1,12 +1,14 @@
-package com.unrec.imdb.search.route
+package com.unrec.imdb.search.camel.route
 
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
+@Profile("camel")
 @Component
 class BasicsRoute : FileRoute() {
 
-    @Value("\${camel.imdb.source}")
+    @Value("\${imdb.source}")
     private lateinit var source: String
 
     private val fileName = "title.basics.tsv.gz"

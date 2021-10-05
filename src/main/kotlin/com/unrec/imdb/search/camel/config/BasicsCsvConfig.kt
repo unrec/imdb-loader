@@ -1,4 +1,4 @@
-package com.unrec.imdb.search.config
+package com.unrec.imdb.search.camel.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.csv.CsvMapper
@@ -6,7 +6,9 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 
+@Profile("camel")
 @Configuration
 class BasicsCsvConfig {
 

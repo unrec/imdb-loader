@@ -1,4 +1,4 @@
-package com.unrec.imdb.search.route
+package com.unrec.imdb.search.camel.route
 
 import com.unrec.imdb.search.Application
 import com.unrec.imdb.search.repository.BasicsEntityRepository
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @CamelSpringBootTest
 @AutoConfigureEmbeddedDatabase
-@ActiveProfiles("test")
+@ActiveProfiles("test", "camel")
 @SpringBootTest(
     classes = [Application::class],
     properties = ["camel.springboot.java-routes-include-pattern=**/BasicsRoute*"]
@@ -35,11 +35,7 @@ class BasicsRouteIT {
     @Autowired
     private lateinit var camelContext: CamelContext
 
-    @Autowired
-    private lateinit var route: BasicsRoute
-
     private val routeId = "BasicsRoute"
-    private val direct = "direct:folder"
 
     @Test
     internal fun loadRecords() {

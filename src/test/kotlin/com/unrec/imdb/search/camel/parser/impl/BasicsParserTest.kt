@@ -1,9 +1,9 @@
-package com.unrec.imdb.search.parser.impl
+package com.unrec.imdb.search.camel.parser.impl
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.unrec.imdb.search.TestDataFactory
-import com.unrec.imdb.search.config.BasicsCsvConfig
+import com.unrec.imdb.search.camel.config.BasicsCsvConfig
 import com.unrec.imdb.search.exception.FileParseException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

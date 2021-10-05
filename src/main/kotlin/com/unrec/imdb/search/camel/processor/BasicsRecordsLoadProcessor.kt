@@ -1,17 +1,19 @@
-package com.unrec.imdb.search.processor
+package com.unrec.imdb.search.camel.processor
 
+import com.unrec.imdb.search.camel.parser.impl.BasicsParser
 import com.unrec.imdb.search.entity.BasicsEntity
 import com.unrec.imdb.search.mapper.toEntity
 import com.unrec.imdb.search.model.BasicsRecord
-import com.unrec.imdb.search.parser.impl.BasicsParser
 import com.unrec.imdb.search.repository.BasicsEntityRepository
 import lombok.RequiredArgsConstructor
 import mu.KotlinLogging
 import org.apache.camel.Exchange
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import java.io.File
 import kotlin.system.measureTimeMillis
 
+@Profile("camel")
 @RequiredArgsConstructor
 @Component
 class BasicsRecordsLoadProcessor(
