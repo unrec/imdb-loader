@@ -1,13 +1,13 @@
 package com.unrec.imdb.search.model
 
 data class BasicsRecord(
-    val tconst: String,
-    val titleType: String,
-    val primaryTitle: String,
-    val originalTitle: String,
-    val isAdult: String,
-    val startYear: String,
-    val endYear: String,
-    val runtimeMinutes: String,
-    val genres: String
+    var tconst: String = "",
+    var titleType: String = "",
+    var primaryTitle: String = "",
+    var originalTitle: String = "",
+    var isAdult: String = "",
+    var startYear: String = "",
+    var endYear: String = "",
+    var runtimeMinutes: String = "",
+    var genres: String = "",
 )
