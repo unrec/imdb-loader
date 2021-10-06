@@ -1,5 +1,6 @@
 package com.unrec.imdb.search.camel.route
 
+import org.apache.camel.LoggingLevel.DEBUG
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
@@ -18,8 +19,10 @@ class BasicsRoute : FileRoute() {
 
         //@formatter:off
         from("file://${source}?noop=true&fileName=${fileName}").id(routeId)
+            .log(DEBUG, log, "Route started @ \${date:now:yyyy-MM-dd HH:mm:ssZ}")
             .bean("GZipProcessor", "process")
             .bean("basicsRecordsLoadProcessor", "process")
+            .log(DEBUG, log, "Route finished @ \${date:now:yyyy-MM-dd HH:mm:ssZ}")
             .end()
         //@formatter:on
     }
