@@ -1,14 +1,16 @@
-package com.unrec.imdb.search.parser.impl
+package com.unrec.imdb.search.camel.parser.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.csv.CsvSchema
 import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
+import com.unrec.imdb.search.camel.parser.FileParser
 import com.unrec.imdb.search.exception.FileParseException
 import com.unrec.imdb.search.model.BasicsRecord
-import com.unrec.imdb.search.parser.FileParser
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import java.io.InputStream
 
+@Profile("camel")
 @Component
 class BasicsParser(
     private val basicsMapper: ObjectMapper,

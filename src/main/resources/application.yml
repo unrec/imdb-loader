@@ -4,40 +4,45 @@ spring:
   application:
     name: imdb-search-service
   liquibase:
-    enabled: false
+    enabled: true
     change-log: classpath:changelog-master.xml
 
-camel:
-  imdb:
-    source: "C:/imdb/zip"
+imdb.source: "C:/imdb/zip"
 
 logging.level:
   ROOT: INFO
   org.springframework: DEBUG
+  org.springframework.batch: DEBUG
   org.springframework.boot.autoconfigure.logging: INFO
   com.unrec.imdb.search: DEBUG
-
+  org.springframework.batch.repeat.support.RepeatTemplate: WARN
+---
+spring.config.activate.on-profile: camel
+spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration
+---
+spring.config.activate.on-profile: batch
+spring.batch.jdbc.initialize-schema: always
+spring.autoconfigure.exclude: org.apache.camel.spring.boot.CamelAutoConfiguration
 ---
 spring.config.activate.on-profile: dev-pg
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/imdb?cachePrepStmts=true&useServerPrepStmts=true
+    url: jdbc:postgresql://localhost:5432/imdb
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
   jpa:
-    hibernate.ddl-auto: create-drop
+    hibernate.ddl-auto: none
     properties:
       hibernate:
         jdbc.lob.non_contextual_creation: true
-#        show_sql: true
-#        format_sql: true
-#        use_sql_comments: true
-        generate_statistics: true
-        jdbc.batch_size: 30
-        order_inserts: true
-        cache.use_second_level_cache: false
-
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+#        generate_statistics: true
+#        jdbc.batch_size: 30
+#        order_inserts: true
+#        cache.use_second_level_cache: false
 ---
 spring.config.activate.on-profile: dev-h2
 spring:

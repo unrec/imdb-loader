@@ -1,4 +1,4 @@
-package com.unrec.imdb.search.route
+package com.unrec.imdb.search.camel.route
 
 import org.apache.camel.LoggingLevel.ERROR
 import org.apache.camel.builder.RouteBuilder

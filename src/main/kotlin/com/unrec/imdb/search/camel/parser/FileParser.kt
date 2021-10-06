@@ -1,4 +1,4 @@
-package com.unrec.imdb.search.parser
+package com.unrec.imdb.search.camel.parser
 
 import java.io.InputStream
 
