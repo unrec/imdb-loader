@@ -1,8 +1,8 @@
 package com.unrec.imdb.search.camel.parser.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.csv.CsvMappingException
 import com.fasterxml.jackson.dataformat.csv.CsvSchema
-import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
 import com.unrec.imdb.search.camel.parser.FileParser
 import com.unrec.imdb.search.exception.FileParseException
 import com.unrec.imdb.search.model.BasicsRecord
@@ -14,11 +14,8 @@ import java.io.InputStream
 @Component
 class BasicsParser(
     private val basicsMapper: ObjectMapper,
-    private val basicsSchema: CsvSchema
+    private val basicsSchema: CsvSchema,
 ) : FileParser<BasicsRecord> {
-
-    private val headers =
-        "tconst\ttitleType\tprimaryTitle\toriginalTitle\tisAdult\tstartYear\tendYear\truntimeMinutes\tgenres\n"
 
     override fun parseRecords(data: String): List<BasicsRecord> {
         return try {
@@ -26,7 +23,7 @@ class BasicsParser(
                 .with(basicsSchema)
                 .readValues<BasicsRecord>(data)
                 .readAll()
-        } catch (e: MissingKotlinParameterException) {
+        } catch (e: CsvMappingException) {
             throw FileParseException("Wrong format of input data: ${e.message}")
         }
     }
@@ -37,7 +34,7 @@ class BasicsParser(
                 .with(basicsSchema)
                 .readValues<BasicsRecord>(data)
                 .readAll()
-        } catch (e: MissingKotlinParameterException) {
+        } catch (e: CsvMappingException) {
             throw FileParseException("Wrong format of input data: ${e.message}")
         }
     }

@@ -2,6 +2,7 @@ package com.unrec.imdb.search.camel.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.csv.CsvMapper
+import com.fasterxml.jackson.dataformat.csv.CsvParser
 import com.fasterxml.jackson.dataformat.csv.CsvSchema
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.context.annotation.Bean
@@ -14,7 +15,9 @@ class BasicsCsvConfig {
 
     @Bean
     fun basicsMapper(): ObjectMapper {
-        return CsvMapper().registerModule(KotlinModule())
+        return CsvMapper()
+            .configure(CsvParser.Feature.FAIL_ON_MISSING_COLUMNS, true)
+            .registerModule(KotlinModule())
     }
 
     @Bean
