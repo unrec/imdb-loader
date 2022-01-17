@@ -23,6 +23,8 @@ spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.batch.Batch
 spring.config.activate.on-profile: batch
 spring.batch.jdbc.initialize-schema: always
 spring.autoconfigure.exclude: org.apache.camel.spring.boot.CamelAutoConfiguration
+spring.batch.job.enabled: true
+batch.scheduler.cron: "0 0 0 1 * ?"
 ---
 spring.config.activate.on-profile: dev-pg
 spring:
