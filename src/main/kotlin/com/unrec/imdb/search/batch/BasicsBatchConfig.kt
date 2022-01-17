@@ -1,6 +1,7 @@
 package com.unrec.imdb.search.batch
 
 import com.unrec.imdb.search.entity.BasicsEntity
+import com.unrec.imdb.search.mapper.toEntity
 import com.unrec.imdb.search.model.BasicsRecord
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
@@ -8,6 +9,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
 import org.springframework.batch.core.launch.support.RunIdIncrementer
+import org.springframework.batch.item.ItemProcessor
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider
 import org.springframework.batch.item.database.JdbcBatchItemWriter
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder
@@ -32,25 +34,13 @@ class BasicsBatchConfig {
     @Autowired
     private lateinit var stepBuilderFactory: StepBuilderFactory
 
-    val basicsHeaders = arrayOf(
-        "tconst",
-        "titleType",
-        "primaryTitle",
-        "originalTitle",
-        "isAdult",
-        "startYear",
-        "endYear",
-        "runtimeMinutes",
-        "genres"
-    )
-
     @Bean
-    fun basicsReader(): FlatFileItemReader<BasicsRecord> {
+    fun basicsItemReader(): FlatFileItemReader<BasicsRecord> {
         val mapper = BeanWrapperFieldSetMapper<BasicsRecord>()
         mapper.setTargetType(BasicsRecord::class.java)
 
         return FlatFileItemReaderBuilder<BasicsRecord>()
-            .name("basicsRecordsItemReader")
+            .name("basicsItemReader")
             .resource(ClassPathResource("data.txt"))
             .linesToSkip(1)
             .delimited()
@@ -62,37 +52,35 @@ class BasicsBatchConfig {
     }
 
     @Bean
-    fun basicsRecordItemProcessor(): BasicsRecordItemProcessor {
-        return BasicsRecordItemProcessor()
+    fun basicsItemProcessor(): ItemProcessor<BasicsRecord, BasicsEntity> {
+        return ItemProcessor { it.toEntity() }
     }
 
     @Bean
-    fun basicsWriter(dataSource: DataSource): JdbcBatchItemWriter<BasicsEntity> {
+    fun basicsItemWriter(dataSource: DataSource): JdbcBatchItemWriter<BasicsEntity> {
         return JdbcBatchItemWriterBuilder<BasicsEntity>()
             .itemSqlParameterSourceProvider(BeanPropertyItemSqlParameterSourceProvider())
-            .sql(
-                "INSERT INTO basics (title_id, title_type, primary_title, original_title, is_adult, start_year,end_year, runtime_minutes, genres) " +
-                        "VALUES(:titleId, :titleType, :primaryTitle, :originalTitle, :isAdult, :startYear, :endYear, :runtimeMinutes, :genres)")
+            .sql(basicsInsertQuery)
             .dataSource(dataSource)
             .build()
     }
 
     @Bean
-    fun importUserJob(listener: JobCompletionNotificationListener, step1: Step): Job? {
-        return jobBuilderFactory["importUserJob"]
+    fun basicsRecordsJob(listener: JobCompletionNotificationListener, basicsReadStep: Step): Job? {
+        return jobBuilderFactory["basicsRecordsJob"]
             .incrementer(RunIdIncrementer())
             .listener(listener)
-            .flow(step1)
+            .flow(basicsReadStep)
             .end()
             .build()
     }
 
     @Bean
-    fun step1(writer: JdbcBatchItemWriter<BasicsEntity>): Step {
-        return stepBuilderFactory["step1"]
+    fun basicsReadStep(writer: JdbcBatchItemWriter<BasicsEntity>): Step {
+        return stepBuilderFactory["basicsReadStep"]
             .chunk<BasicsRecord, BasicsEntity>(10000)
-            .reader(basicsReader())
-            .processor(basicsRecordItemProcessor())
+            .reader(basicsItemReader())
+            .processor(basicsItemProcessor())
             .writer(writer)
             .build()
     }
