@@ -17,10 +17,12 @@ import org.springframework.batch.item.file.FlatFileItemReader
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
-import org.springframework.core.io.ClassPathResource
+import org.springframework.core.io.FileSystemResource
+import java.nio.file.Path
 import javax.sql.DataSource
 
 @Profile("batch")
@@ -34,6 +36,12 @@ class BasicsBatchConfig {
     @Autowired
     private lateinit var stepBuilderFactory: StepBuilderFactory
 
+    @Autowired
+    private lateinit var gZipBufferedReaderFactory: GZipBufferedReaderFactory
+
+    @Value("\${imdb.source}")
+    private lateinit var sourcePath: String
+
     @Bean
     fun basicsItemReader(): FlatFileItemReader<BasicsRecord> {
         val mapper = BeanWrapperFieldSetMapper<BasicsRecord>()
@@ -41,7 +49,8 @@ class BasicsBatchConfig {
 
         return FlatFileItemReaderBuilder<BasicsRecord>()
             .name("basicsItemReader")
-            .resource(ClassPathResource("data.txt"))
+            .resource(FileSystemResource(Path.of(sourcePath, basicsZip)))
+            .bufferedReaderFactory(gZipBufferedReaderFactory)
             .linesToSkip(1)
             .delimited()
             .delimiter("\t")
