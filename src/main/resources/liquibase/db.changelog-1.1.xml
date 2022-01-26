@@ -1,0 +1,19 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet author="unrec" id="1.1_create `basics` table">
+    <sql dbms="postgresql">
+      CREATE TABLE basics(
+      title_id INTEGER PRIMARY KEY NOT NULL,
+      title_type VARCHAR(64),
+      primary_title VARCHAR(512),
+      original_title VARCHAR(512),
+      is_adult BOOLEAN,
+      start_year INTEGER,
+      end_year INTEGER,
+      runtime_minutes INTEGER,
+      genres VARCHAR(128));
+    </sql>
+  </changeSet>
+</databaseChangeLog>
