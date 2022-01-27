@@ -26,6 +26,9 @@ spring.autoconfigure.exclude: org.apache.camel.spring.boot.CamelAutoConfiguratio
 spring.batch.job.enabled: true
 batch.scheduler.cron: "0 0 0 1 * ?"
 imdb:
+  basics:
+    chunkSize: 10000
+    enabled: true
   ratings:
     chunkSize: 10000
     enabled: true

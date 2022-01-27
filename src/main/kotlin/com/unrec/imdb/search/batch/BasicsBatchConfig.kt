@@ -18,6 +18,7 @@ import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
@@ -28,6 +29,7 @@ import javax.sql.DataSource
 @Profile("batch")
 @EnableBatchProcessing
 @Configuration
+@ConditionalOnProperty(value = ["imdb.basics.enabled"], havingValue = "true")
 class BasicsBatchConfig {
 
     @Autowired
@@ -41,6 +43,9 @@ class BasicsBatchConfig {
 
     @Value("\${imdb.source}")
     private lateinit var sourcePath: String
+
+    @Value("\${imdb.basics.chunkSize}")
+    private var chunkSize: Int = 1000
 
     @Bean
     fun basicsItemReader(): FlatFileItemReader<BasicsRecord> {
@@ -87,7 +92,7 @@ class BasicsBatchConfig {
     @Bean
     fun basicsReadStep(writer: JdbcBatchItemWriter<BasicsEntity>): Step {
         return stepBuilderFactory["basicsReadStep"]
-            .chunk<BasicsRecord, BasicsEntity>(10000)
+            .chunk<BasicsRecord, BasicsEntity>(chunkSize)
             .reader(basicsItemReader())
             .processor(basicsItemProcessor())
             .writer(writer)
