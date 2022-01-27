@@ -11,3 +11,9 @@ val basicsHeaders = arrayOf(
     "runtimeMinutes",
     "genres"
 )
+
+val ratingsHeaders = arrayOf(
+    "tconst",
+    "averageRating",
+    "numVotes"
+)

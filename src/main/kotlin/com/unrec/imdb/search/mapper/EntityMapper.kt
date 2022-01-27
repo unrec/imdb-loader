@@ -1,8 +1,10 @@
 package com.unrec.imdb.search.mapper
 
 import com.unrec.imdb.search.entity.BasicsEntity
+import com.unrec.imdb.search.entity.RatingsEntity
 import com.unrec.imdb.search.exception.ConvertException
 import com.unrec.imdb.search.model.BasicsRecord
+import com.unrec.imdb.search.model.RatingsRecord
 
 fun BasicsRecord.toEntity(): BasicsEntity {
     return BasicsEntity(
@@ -18,7 +20,15 @@ fun BasicsRecord.toEntity(): BasicsEntity {
     )
 }
 
-fun convertBoolean(input: String): Boolean? {
+fun RatingsRecord.toEntity(): RatingsEntity {
+    return RatingsEntity(
+        this.tconst.substring(2).toLong(),
+        this.averageRating.toDouble(),
+        this.numVotes.toInt(),
+    )
+}
+
+private fun convertBoolean(input: String): Boolean? {
     return when (input) {
         "0" -> false
         "1" -> true
@@ -27,7 +37,7 @@ fun convertBoolean(input: String): Boolean? {
     }
 }
 
-fun convertInteger(input: String): Int? {
+private fun convertInteger(input: String): Int? {
     return if (input == "\\N") null else try {
         input.toInt()
     } catch (e: NumberFormatException) {

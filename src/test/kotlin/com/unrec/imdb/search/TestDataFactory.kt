@@ -1,7 +1,9 @@
 package com.unrec.imdb.search
 
 import com.unrec.imdb.search.entity.BasicsEntity
+import com.unrec.imdb.search.entity.RatingsEntity
 import com.unrec.imdb.search.model.BasicsRecord
+import com.unrec.imdb.search.model.RatingsRecord
 
 object TestDataFactory {
 
@@ -29,7 +31,7 @@ object TestDataFactory {
 
 
     fun testBasicsRecord() = BasicsRecord(
-        tconst ="tt0110912",
+        tconst = "tt0110912",
         titleType = "movie",
         primaryTitle = "Pulp Fiction",
         originalTitle = "Pulp Fiction",
@@ -50,5 +52,17 @@ object TestDataFactory {
         endYear = null,
         runtimeMinutes = 154,
         genres = "Crime, Drama"
+    )
+
+    fun testRatingsRecord() = RatingsRecord(
+        tconst = "tt0110912",
+        averageRating = "8.9",
+        numVotes = "1946783"
+    )
+
+    fun testRatingsEntity() = RatingsEntity(
+        titleId = 110912,
+        averageRating = 8.9,
+        numVotes = 110912
     )
 }
