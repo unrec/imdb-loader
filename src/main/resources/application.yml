@@ -24,7 +24,9 @@ spring.config.activate.on-profile: batch
 spring.batch.jdbc.initialize-schema: never
 spring.autoconfigure.exclude: org.apache.camel.spring.boot.CamelAutoConfiguration
 spring.batch.job.enabled: true
-batch.scheduler.cron: "0 0 0 1 * ?"
+batch.scheduler:
+  enabled: false
+  cron: "0 0 0 1 * ?"
 imdb:
   basics:
     chunkSize: 10000

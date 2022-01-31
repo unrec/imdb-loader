@@ -13,7 +13,7 @@ import java.util.*
 
 @EnableScheduling
 @Profile("!test", "batch")
-@ConditionalOnProperty(value = ["spring.batch.job.enabled"], havingValue = "false")
+@ConditionalOnProperty(value = ["batch.scheduler.enabled"], havingValue = "true")
 @Configuration
 class BatchSchedulerConfig(private val launcher: JobLauncher, val jobList: List<Job>) {
 
