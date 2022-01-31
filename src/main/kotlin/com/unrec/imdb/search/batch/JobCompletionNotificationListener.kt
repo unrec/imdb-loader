@@ -16,17 +16,15 @@ class JobCompletionNotificationListener : JobExecutionListenerSupport() {
     private val logger = KotlinLogging.logger {}
 
     override fun beforeJob(jobExecution: JobExecution) {
-        logger.info { "JOB STARTED! @ ${jobExecution.startTime}" }
+        logger.info { "JOB '${jobExecution.jobInstance.jobName}' STARTED! @ ${jobExecution.startTime}" }
     }
 
     override fun afterJob(jobExecution: JobExecution) {
         if (jobExecution.status == BatchStatus.COMPLETED) {
-            logger.info("JOB FINISHED! @ ${jobExecution.endTime}")
-            logger.info("started @ ${jobExecution.startTime}, finished @ ${jobExecution.endTime} }")
-
+            logger.info("JOB '${jobExecution.jobInstance.jobName}' FINISHED! @ ${jobExecution.endTime}")
             val diffInMills: Long = abs(jobExecution.endTime.time - jobExecution.startTime.time)
             val diffInSeconds = TimeUnit.SECONDS.convert(diffInMills, TimeUnit.MILLISECONDS)
-            logger.info("job duration = $diffInSeconds seconds")
+            logger.info("JOB '${jobExecution.jobInstance.jobName}' DURATION = $diffInSeconds SECONDS")
         }
     }
 }
