@@ -1,14 +1,18 @@
 package com.unrec.imdb.search.mapper
 
 import com.unrec.imdb.search.entity.BasicsEntity
+import com.unrec.imdb.search.entity.CrewEntity
 import com.unrec.imdb.search.entity.RatingsEntity
 import com.unrec.imdb.search.exception.ConvertException
 import com.unrec.imdb.search.model.BasicsRecord
+import com.unrec.imdb.search.model.CrewRecord
 import com.unrec.imdb.search.model.RatingsRecord
+
+private val leadingRegex = "(nm|tt)0*".toRegex()
 
 fun BasicsRecord.toEntity(): BasicsEntity {
     return BasicsEntity(
-        this.tconst.substring(2).toLong(),
+        this.tconst.removeLeadingChars().toLong(),
         this.titleType,
         this.primaryTitle,
         this.originalTitle,
@@ -22,9 +26,17 @@ fun BasicsRecord.toEntity(): BasicsEntity {
 
 fun RatingsRecord.toEntity(): RatingsEntity {
     return RatingsEntity(
-        this.tconst.substring(2).toLong(),
+        this.tconst.removeLeadingChars().toLong(),
         this.averageRating.toDouble(),
         this.numVotes.toInt(),
+    )
+}
+
+fun CrewRecord.toEntity(): CrewEntity {
+    return CrewEntity(
+        this.tconst.removeLeadingChars().toLong(),
+        this.writers.extractNonEmptyValue()?.removeLeadingChars(),
+        this.directors.extractNonEmptyValue()?.removeLeadingChars()
     )
 }
 
@@ -44,3 +56,9 @@ private fun convertInteger(input: String): Int? {
         throw ConvertException("Incorrect boolean descriptor: $input")
     }
 }
+
+private fun String.extractNonEmptyValue() = if (this == "\\N") null else this
+
+private fun String.removeLeadingChars() = this.replace(leadingRegex, "")
+
+

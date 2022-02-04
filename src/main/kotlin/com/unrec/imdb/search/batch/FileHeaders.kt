@@ -17,3 +17,9 @@ val ratingsHeaders = arrayOf(
     "averageRating",
     "numVotes"
 )
+
+val crewHeaders = arrayOf(
+    "tconst",
+    "directors",
+    "writers"
+)

@@ -7,3 +7,7 @@ const val basicsInsertQuery = """
 const val ratingsInsertQuery = """
     INSERT INTO ratings (title_id, average_rating, num_votes)
     VALUES(:titleId, :averageRating, :numVotes)"""
+
+const val crewInsertQuery = """
+    INSERT INTO crew (title_id, directors, writers)
+    VALUES(:titleId, :directors, :writers)"""

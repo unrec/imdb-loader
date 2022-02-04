@@ -30,8 +30,11 @@ batch.scheduler:
 imdb:
   basics:
     chunkSize: 10000
-    enabled: true
+    enabled: false
   ratings:
+    chunkSize: 10000
+    enabled: false
+  crew:
     chunkSize: 10000
     enabled: true
 ---
