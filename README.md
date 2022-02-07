@@ -1,4 +1,4 @@
-# imdb-search-service
+# imdb-loader
 
 ### Apache Camel vs. Spring Batch
 
