@@ -1,0 +1,18 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet author="unrec" id="1.4_create `akas` table">
+    <sql dbms="postgresql">
+      CREATE TABLE akas(
+      title_id INTEGER NOT NULL,
+      ordering SMALLINT NOT NULL,
+      title VARCHAR(1024),
+      region VARCHAR(4),
+      language VARCHAR(3),
+      types VARCHAR[],
+      attributes VARCHAR[],
+      is_original_title BOOLEAN);
+    </sql>
+  </changeSet>
+</databaseChangeLog>

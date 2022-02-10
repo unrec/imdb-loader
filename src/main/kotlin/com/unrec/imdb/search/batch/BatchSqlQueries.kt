@@ -11,3 +11,7 @@ const val ratingsInsertQuery = """
 const val crewInsertQuery = """
     INSERT INTO crew (title_id, directors, writers)
     VALUES(:titleId, :directors, :writers)"""
+
+const val akaInsertQuery = """
+    INSERT INTO akas (title_id, ordering, title, region, language, types,attributes,is_original_title)
+    VALUES(:titleId, :ordering, :title, :region, :language, string_to_array(:types,','), string_to_array(:attributes, ','), :isOriginalTitle)"""

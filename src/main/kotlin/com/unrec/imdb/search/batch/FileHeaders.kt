@@ -23,3 +23,14 @@ val crewHeaders = arrayOf(
     "directors",
     "writers"
 )
+
+val akasHeaders = arrayOf(
+    "titleId",
+    "ordering",
+    "title",
+    "region",
+    "language",
+    "types",
+    "attributes",
+    "isOriginalTitle"
+)

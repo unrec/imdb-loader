@@ -1,9 +1,11 @@
 package com.unrec.imdb.search.mapper
 
+import com.unrec.imdb.search.entity.AkasEntity
 import com.unrec.imdb.search.entity.BasicsEntity
 import com.unrec.imdb.search.entity.CrewEntity
 import com.unrec.imdb.search.entity.RatingsEntity
 import com.unrec.imdb.search.exception.ConvertException
+import com.unrec.imdb.search.model.AkasRecord
 import com.unrec.imdb.search.model.BasicsRecord
 import com.unrec.imdb.search.model.CrewRecord
 import com.unrec.imdb.search.model.RatingsRecord
@@ -37,6 +39,19 @@ fun CrewRecord.toEntity(): CrewEntity {
         this.tconst.removeLeadingChars().toLong(),
         this.writers.extractNonEmptyValue()?.removeLeadingChars(),
         this.directors.extractNonEmptyValue()?.removeLeadingChars()
+    )
+}
+
+fun AkasRecord.toEntity(): AkasEntity {
+    return AkasEntity(
+        this.titleId.removeLeadingChars().toLong(),
+        this.ordering.toInt(),
+        this.title,
+        this.region,
+        this.language,
+        this.types.extractNonEmptyValue(),
+        this.attributes.extractNonEmptyValue(),
+        convertBoolean(this.isOriginalTitle)
     )
 }
 
