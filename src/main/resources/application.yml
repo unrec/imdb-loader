@@ -39,7 +39,11 @@ imdb:
     enabled: false
   akas:
     chunkSize: 10000
+    enabled: false
+  principals:
+    chunkSize: 10000
     enabled: true
+
 ---
 spring.config.activate.on-profile: dev-pg
 spring:

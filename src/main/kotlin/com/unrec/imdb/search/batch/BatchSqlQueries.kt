@@ -15,3 +15,7 @@ const val crewInsertQuery = """
 const val akaInsertQuery = """
     INSERT INTO akas (title_id, ordering, title, region, language, types,attributes,is_original_title)
     VALUES(:titleId, :ordering, :title, :region, :language, string_to_array(:types,','), string_to_array(:attributes, ','), :isOriginalTitle)"""
+
+const val principalsInsertQuery = """
+    INSERT INTO principals (title_id, ordering, name_id, category, job, characters)
+    VALUES(:titleId, :ordering, :nameId, :category, :job, :characters)"""

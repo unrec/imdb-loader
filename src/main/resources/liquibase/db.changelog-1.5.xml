@@ -1,0 +1,16 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet author="unrec" id="1.5_create `principals` table">
+    <sql dbms="postgresql">
+      CREATE TABLE principals(
+      title_id INTEGER NOT NULL,
+      ordering SMALLINT NOT NULL,
+      name_id INTEGER,
+      category VARCHAR(64),
+      job TEXT,
+      characters TEXT);
+    </sql>
+  </changeSet>
+</databaseChangeLog>

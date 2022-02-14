@@ -34,3 +34,12 @@ val akasHeaders = arrayOf(
     "attributes",
     "isOriginalTitle"
 )
+
+val principalsHeaders = arrayOf(
+    "tconst",
+    "ordering",
+    "nconst",
+    "category",
+    "job",
+    "characters"
+)

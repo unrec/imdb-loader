@@ -1,14 +1,8 @@
 package com.unrec.imdb.search.mapper
 
-import com.unrec.imdb.search.entity.AkasEntity
-import com.unrec.imdb.search.entity.BasicsEntity
-import com.unrec.imdb.search.entity.CrewEntity
-import com.unrec.imdb.search.entity.RatingsEntity
+import com.unrec.imdb.search.entity.*
 import com.unrec.imdb.search.exception.ConvertException
-import com.unrec.imdb.search.model.AkasRecord
-import com.unrec.imdb.search.model.BasicsRecord
-import com.unrec.imdb.search.model.CrewRecord
-import com.unrec.imdb.search.model.RatingsRecord
+import com.unrec.imdb.search.model.*
 
 private val leadingRegex = "(nm|tt)0*".toRegex()
 
@@ -52,6 +46,17 @@ fun AkasRecord.toEntity(): AkasEntity {
         this.types.extractNonEmptyValue(),
         this.attributes.extractNonEmptyValue(),
         convertBoolean(this.isOriginalTitle)
+    )
+}
+
+fun PrincipalsRecord.toEntity(): PrincipalsEntity {
+    return PrincipalsEntity(
+        tconst.removeLeadingChars().toLong(),
+        convertInteger(ordering),
+        nconst.removeLeadingChars().toLong(),
+        category,
+        job.extractNonEmptyValue(),
+        characters.extractNonEmptyValue()
     )
 }
 
