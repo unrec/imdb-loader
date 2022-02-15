@@ -19,3 +19,8 @@ const val akaInsertQuery = """
 const val principalsInsertQuery = """
     INSERT INTO principals (title_id, ordering, name_id, category, job, characters)
     VALUES(:titleId, :ordering, :nameId, :category, :job, :characters)"""
+
+
+const val episodesInsertQuery = """
+    INSERT INTO episodes (title_id, parent_id, season_number, episode_number)
+    VALUES(:titleId, :parentId, :seasonNumber, :episodeNumber)"""

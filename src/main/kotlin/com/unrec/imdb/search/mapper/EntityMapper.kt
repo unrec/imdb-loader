@@ -60,6 +60,15 @@ fun PrincipalsRecord.toEntity(): PrincipalsEntity {
     )
 }
 
+fun EpisodeRecord.toEntity(): EpisodeEntity {
+    return EpisodeEntity(
+        tconst.removeLeadingChars().toLong(),
+        parentTconst.removeLeadingChars().toLong(),
+        convertInteger(seasonNumber),
+        convertInteger(episodeNumber)
+    )
+}
+
 private fun convertBoolean(input: String): Boolean? {
     return when (input) {
         "0" -> false

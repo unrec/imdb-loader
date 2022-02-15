@@ -1,0 +1,14 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet author="unrec" id="1.6_create `episodes` table">
+    <sql dbms="postgresql">
+      CREATE TABLE episodes(
+      title_id INTEGER NOT NULL,
+      parent_id INTEGER,
+      season_number INTEGER,
+      episode_number INTEGER);
+    </sql>
+  </changeSet>
+</databaseChangeLog>

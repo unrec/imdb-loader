@@ -43,3 +43,10 @@ val principalsHeaders = arrayOf(
     "job",
     "characters"
 )
+
+val episodeHeaders = arrayOf(
+    "tconst",
+    "parentTconst",
+    "seasonNumber",
+    "episodeNumber"
+)

@@ -42,6 +42,9 @@ imdb:
     enabled: false
   principals:
     chunkSize: 10000
+    enabled: false
+  episode:
+    chunkSize: 10000
     enabled: true
 
 ---
