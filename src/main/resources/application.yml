@@ -12,10 +12,13 @@ imdb.source: "C:/imdb/zip"
 logging.level:
   ROOT: INFO
   org.springframework: DEBUG
-  org.springframework.batch: DEBUG
-  org.springframework.boot.autoconfigure.logging: INFO
-  com.unrec.imdb.search: DEBUG
+  org.springframework.batch: INFO
+  org.springframework.batch.item.database.JdbcBatchItemWriter: INFO
   org.springframework.batch.repeat.support.RepeatTemplate: WARN
+  org.springframework.boot.autoconfigure.logging: INFO
+  org.springframework.jdbc: INFO
+  org.springframework.orm: INFO
+  com.unrec.imdb.search: DEBUG
 ---
 spring.config.activate.on-profile: camel
 spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration
@@ -44,6 +47,9 @@ imdb:
     chunkSize: 10000
     enabled: false
   episode:
+    chunkSize: 10000
+    enabled: false
+  nameBasics:
     chunkSize: 10000
     enabled: true
 
