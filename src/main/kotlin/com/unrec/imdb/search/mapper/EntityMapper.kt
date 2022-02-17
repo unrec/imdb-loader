@@ -69,6 +69,17 @@ fun EpisodeRecord.toEntity(): EpisodeEntity {
     )
 }
 
+fun NameBasicsRecord.toEntity(): NameBasicsEntity {
+    return NameBasicsEntity(
+        nameId = nconst.removeLeadingChars().toLong(),
+        primaryName = primaryName,
+        birthYear = convertInteger(birthYear),
+        deathYear = convertInteger(birthYear),
+        primaryProfession = primaryProfession.extractNonEmptyValue(),
+        knownForTitles = knownForTitles.extractNonEmptyValue()?.removeLeadingChars()
+    )
+}
+
 private fun convertBoolean(input: String): Boolean? {
     return when (input) {
         "0" -> false

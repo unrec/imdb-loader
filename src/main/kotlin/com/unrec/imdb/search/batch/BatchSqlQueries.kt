@@ -24,3 +24,7 @@ const val principalsInsertQuery = """
 const val episodesInsertQuery = """
     INSERT INTO episodes (title_id, parent_id, season_number, episode_number)
     VALUES(:titleId, :parentId, :seasonNumber, :episodeNumber)"""
+
+const val nameBasicsInsertQuery = """
+    INSERT INTO name_basics (name_id, primary_name, birth_year, death_year, primary_profession, known_for_titles)
+    VALUES(:nameId, :primaryName, :birthYear, :deathYear, string_to_array(:primaryProfession,','), string_to_array(:knownForTitles, ','))"""

@@ -50,3 +50,12 @@ val episodeHeaders = arrayOf(
     "seasonNumber",
     "episodeNumber"
 )
+
+val nameBasicsHeaders = arrayOf(
+    "nconst",
+    "primaryName",
+    "birthYear",
+    "deathYear",
+    "primaryProfession",
+    "knownForTitles"
+)
