@@ -1,8 +1,13 @@
-package com.unrec.imdb.search.batch
+package com.unrec.imdb.search.config.batch
 
-import com.unrec.imdb.search.entity.AkasEntity
+import com.unrec.imdb.search.batch.GZipBufferedReaderFactory
+import com.unrec.imdb.search.batch.JobCompletionNotificationListener
+import com.unrec.imdb.search.config.batch.constants.episodeHeaders
+import com.unrec.imdb.search.config.batch.constants.episodeZip
+import com.unrec.imdb.search.config.batch.constants.episodesInsertQuery
+import com.unrec.imdb.search.entity.EpisodeEntity
 import com.unrec.imdb.search.mapper.toEntity
-import com.unrec.imdb.search.model.AkasRecord
+import com.unrec.imdb.search.model.EpisodeRecord
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
@@ -29,8 +34,8 @@ import javax.sql.DataSource
 @Profile("batch")
 @EnableBatchProcessing
 @Configuration
-@ConditionalOnProperty(value = ["imdb.akas.enabled"], havingValue = "true")
-class AkasBatchConfig {
+@ConditionalOnProperty(value = ["imdb.episode.enabled"], havingValue = "true")
+class EpisodeBatchConfig {
 
     @Autowired
     private lateinit var jobBuilderFactory: JobBuilderFactory
@@ -44,57 +49,57 @@ class AkasBatchConfig {
     @Value("\${imdb.source}")
     private lateinit var sourcePath: String
 
-    @Value("\${imdb.akas.chunkSize}")
+    @Value("\${imdb.episode.chunkSize}")
     private var chunkSize: Int = 1000
 
     @Bean
-    fun akasItemReader(): FlatFileItemReader<AkasRecord> {
-        val mapper = BeanWrapperFieldSetMapper<AkasRecord>()
-        mapper.setTargetType(AkasRecord::class.java)
+    fun episodeItemReader(): FlatFileItemReader<EpisodeRecord> {
+        val mapper = BeanWrapperFieldSetMapper<EpisodeRecord>()
+        mapper.setTargetType(EpisodeRecord::class.java)
 
-        return FlatFileItemReaderBuilder<AkasRecord>()
-            .name("akasItemReader")
-            .resource(FileSystemResource(Path.of(sourcePath, akasZip)))
+        return FlatFileItemReaderBuilder<EpisodeRecord>()
+            .name("episodeItemReader")
+            .resource(FileSystemResource(Path.of(sourcePath, episodeZip)))
             .bufferedReaderFactory(gZipBufferedReaderFactory)
             .linesToSkip(1)
             .delimited()
             .delimiter("\t")
             .quoteCharacter('☀')
-            .names(*akasHeaders)
+            .names(*episodeHeaders)
             .fieldSetMapper(mapper)
             .build()
     }
 
     @Bean
-    fun akasItemProcessor(): ItemProcessor<AkasRecord, AkasEntity> {
+    fun episodeItemProcessor(): ItemProcessor<EpisodeRecord, EpisodeEntity> {
         return ItemProcessor { it.toEntity() }
     }
 
     @Bean
-    fun akasItemWriter(dataSource: DataSource): JdbcBatchItemWriter<AkasEntity> {
-        return JdbcBatchItemWriterBuilder<AkasEntity>()
+    fun episodeItemWriter(dataSource: DataSource): JdbcBatchItemWriter<EpisodeEntity> {
+        return JdbcBatchItemWriterBuilder<EpisodeEntity>()
             .itemSqlParameterSourceProvider(BeanPropertyItemSqlParameterSourceProvider())
-            .sql(akaInsertQuery)
+            .sql(episodesInsertQuery)
             .dataSource(dataSource)
             .build()
     }
 
     @Bean
-    fun akasRecordsJob(listener: JobCompletionNotificationListener, akasReadStep: Step): Job? {
-        return jobBuilderFactory["akasRecordsJob"]
+    fun episodeRecordsJob(listener: JobCompletionNotificationListener, episodeReadStep: Step): Job? {
+        return jobBuilderFactory["episodeRecordsJob"]
             .incrementer(RunIdIncrementer())
             .listener(listener)
-            .flow(akasReadStep)
+            .flow(episodeReadStep)
             .end()
             .build()
     }
 
     @Bean
-    fun akasReadStep(writer: JdbcBatchItemWriter<AkasEntity>): Step {
-        return stepBuilderFactory["akasReadStep"]
-            .chunk<AkasRecord, AkasEntity>(chunkSize)
-            .reader(akasItemReader())
-            .processor(akasItemProcessor())
+    fun episodeReadStep(writer: JdbcBatchItemWriter<EpisodeEntity>): Step {
+        return stepBuilderFactory["episodeReadStep"]
+            .chunk<EpisodeRecord, EpisodeEntity>(chunkSize)
+            .reader(episodeItemReader())
+            .processor(episodeItemProcessor())
             .writer(writer)
             .build()
     }

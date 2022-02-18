@@ -19,7 +19,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>11</java.version>
     <kotlin.version>1.5.20</kotlin.version>
-    <camel.version>3.8.0</camel.version>
     <orika-spring-boot.version>1.9.0</orika-spring-boot.version>
     <orika.version>1.5.4</orika.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
@@ -55,46 +54,6 @@
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>
       <artifactId>jackson-module-kotlin</artifactId>
-    </dependency>
-
-    <!--Camel-->
-    <dependency>
-      <groupId>org.apache.camel.springboot</groupId>
-      <artifactId>camel-spring-boot-starter</artifactId>
-      <version>${camel.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel.springboot</groupId>
-      <artifactId>camel-http-starter</artifactId>
-      <version>${camel.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel.springboot</groupId>
-      <artifactId>camel-quartz-starter</artifactId>
-      <version>${camel.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel.springboot</groupId>
-      <artifactId>camel-cron-starter</artifactId>
-      <version>${camel.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-jpa</artifactId>
-      <version>${camel.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-test-spring-junit5</artifactId>
-      <version>${camel.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-core</artifactId>
-      <version>${camel.version}</version>
-      <type>test-jar</type>
-      <scope>test</scope>
     </dependency>
 
     <!--Database-->

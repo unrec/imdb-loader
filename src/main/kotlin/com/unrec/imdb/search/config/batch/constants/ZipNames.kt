@@ -1,4 +1,4 @@
-package com.unrec.imdb.search.batch
+package com.unrec.imdb.search.config.batch.constants
 
 const val basicsZip = "title.basics.tsv.gz"
 const val ratingsZip = "title.ratings.tsv.gz"

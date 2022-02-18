@@ -1,4 +1,4 @@
-package com.unrec.imdb.search.batch
+package com.unrec.imdb.search.config.batch.constants
 
 val basicsHeaders = arrayOf(
     "tconst",
