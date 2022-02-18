@@ -20,12 +20,8 @@ logging.level:
   org.springframework.orm: INFO
   com.unrec.imdb.search: DEBUG
 ---
-spring.config.activate.on-profile: camel
-spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration
----
 spring.config.activate.on-profile: batch
 spring.batch.jdbc.initialize-schema: never
-spring.autoconfigure.exclude: org.apache.camel.spring.boot.CamelAutoConfiguration
 spring.batch.job.enabled: true
 batch.scheduler:
   enabled: false
