@@ -1,8 +1,13 @@
-package com.unrec.imdb.search.batch
+package com.unrec.imdb.search.config.batch
 
-import com.unrec.imdb.search.entity.RatingsEntity
+import com.unrec.imdb.search.batch.GZipBufferedReaderFactory
+import com.unrec.imdb.search.batch.JobCompletionNotificationListener
+import com.unrec.imdb.search.config.batch.constants.principalsHeaders
+import com.unrec.imdb.search.config.batch.constants.principalsInsertQuery
+import com.unrec.imdb.search.config.batch.constants.principalsZip
+import com.unrec.imdb.search.entity.PrincipalsEntity
 import com.unrec.imdb.search.mapper.toEntity
-import com.unrec.imdb.search.model.RatingsRecord
+import com.unrec.imdb.search.model.PrincipalsRecord
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
@@ -29,8 +34,8 @@ import javax.sql.DataSource
 @Profile("batch")
 @EnableBatchProcessing
 @Configuration
-@ConditionalOnProperty(value = ["imdb.ratings.enabled"], havingValue = "true")
-class RatingsBatchConfig {
+@ConditionalOnProperty(value = ["imdb.principals.enabled"], havingValue = "true")
+class PrincipalsBatchConfig {
 
     @Autowired
     private lateinit var jobBuilderFactory: JobBuilderFactory
@@ -44,57 +49,60 @@ class RatingsBatchConfig {
     @Value("\${imdb.source}")
     private lateinit var sourcePath: String
 
-    @Value("\${imdb.ratings.chunkSize}")
+    @Value("\${imdb.principals.chunkSize}")
     private var chunkSize: Int = 1000
 
     @Bean
-    fun ratingsItemReader(): FlatFileItemReader<RatingsRecord> {
-        val mapper = BeanWrapperFieldSetMapper<RatingsRecord>()
-        mapper.setTargetType(RatingsRecord::class.java)
+    fun principalsItemReader(): FlatFileItemReader<PrincipalsRecord> {
+        val mapper = BeanWrapperFieldSetMapper<PrincipalsRecord>()
+        mapper.setTargetType(PrincipalsRecord::class.java)
 
-        return FlatFileItemReaderBuilder<RatingsRecord>()
-            .name("ratingsItemReader")
-            .resource(FileSystemResource(Path.of(sourcePath, ratingsZip)))
+        return FlatFileItemReaderBuilder<PrincipalsRecord>()
+            .name("principalsItemReader")
+            .resource(FileSystemResource(Path.of(sourcePath, principalsZip)))
             .bufferedReaderFactory(gZipBufferedReaderFactory)
             .linesToSkip(1)
             .delimited()
             .delimiter("\t")
-            .quoteCharacter('★')
-            .names(*ratingsHeaders)
+            .quoteCharacter('☀')
+            .names(*principalsHeaders)
             .fieldSetMapper(mapper)
             .build()
     }
 
     @Bean
-    fun ratingsItemProcessor(): ItemProcessor<RatingsRecord, RatingsEntity> {
+    fun principalsItemProcessor(): ItemProcessor<PrincipalsRecord, PrincipalsEntity> {
         return ItemProcessor { it.toEntity() }
     }
 
     @Bean
-    fun ratingsItemWriter(dataSource: DataSource): JdbcBatchItemWriter<RatingsEntity> {
-        return JdbcBatchItemWriterBuilder<RatingsEntity>()
+    fun principalsItemWriter(dataSource: DataSource): JdbcBatchItemWriter<PrincipalsEntity> {
+        return JdbcBatchItemWriterBuilder<PrincipalsEntity>()
             .itemSqlParameterSourceProvider(BeanPropertyItemSqlParameterSourceProvider())
-            .sql(ratingsInsertQuery)
+            .sql(principalsInsertQuery)
             .dataSource(dataSource)
             .build()
     }
 
     @Bean
-    fun ratingsRecordsJob(listener: JobCompletionNotificationListener, ratingsReadStep: Step): Job? {
-        return jobBuilderFactory["ratingsRecordsJob"]
+    fun principalsRecordsJob(
+        listener: JobCompletionNotificationListener,
+        principalsReadStep: Step
+    ): Job? {
+        return jobBuilderFactory["principalsRecordsJob"]
             .incrementer(RunIdIncrementer())
             .listener(listener)
-            .flow(ratingsReadStep)
+            .flow(principalsReadStep)
             .end()
             .build()
     }
 
     @Bean
-    fun ratingsReadStep(writer: JdbcBatchItemWriter<RatingsEntity>): Step {
-        return stepBuilderFactory["ratingsRecordsJob"]
-            .chunk<RatingsRecord, RatingsEntity>(chunkSize)
-            .reader(ratingsItemReader())
-            .processor(ratingsItemProcessor())
+    fun principalsReadStep(writer: JdbcBatchItemWriter<PrincipalsEntity>): Step {
+        return stepBuilderFactory["principalsReadStep"]
+            .chunk<PrincipalsRecord, PrincipalsEntity>(chunkSize)
+            .reader(principalsItemReader())
+            .processor(principalsItemProcessor())
             .writer(writer)
             .build()
     }

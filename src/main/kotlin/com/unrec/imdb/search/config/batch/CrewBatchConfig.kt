@@ -1,8 +1,13 @@
-package com.unrec.imdb.search.batch
+package com.unrec.imdb.search.config.batch
 
-import com.unrec.imdb.search.entity.EpisodeEntity
+import com.unrec.imdb.search.batch.GZipBufferedReaderFactory
+import com.unrec.imdb.search.batch.JobCompletionNotificationListener
+import com.unrec.imdb.search.config.batch.constants.crewHeaders
+import com.unrec.imdb.search.config.batch.constants.crewInsertQuery
+import com.unrec.imdb.search.config.batch.constants.crewZip
+import com.unrec.imdb.search.entity.CrewEntity
 import com.unrec.imdb.search.mapper.toEntity
-import com.unrec.imdb.search.model.EpisodeRecord
+import com.unrec.imdb.search.model.CrewRecord
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
@@ -29,8 +34,8 @@ import javax.sql.DataSource
 @Profile("batch")
 @EnableBatchProcessing
 @Configuration
-@ConditionalOnProperty(value = ["imdb.episode.enabled"], havingValue = "true")
-class EpisodeBatchConfig {
+@ConditionalOnProperty(value = ["imdb.crew.enabled"], havingValue = "true")
+class CrewBatchConfig {
 
     @Autowired
     private lateinit var jobBuilderFactory: JobBuilderFactory
@@ -44,57 +49,57 @@ class EpisodeBatchConfig {
     @Value("\${imdb.source}")
     private lateinit var sourcePath: String
 
-    @Value("\${imdb.episode.chunkSize}")
+    @Value("\${imdb.crew.chunkSize}")
     private var chunkSize: Int = 1000
 
     @Bean
-    fun episodeItemReader(): FlatFileItemReader<EpisodeRecord> {
-        val mapper = BeanWrapperFieldSetMapper<EpisodeRecord>()
-        mapper.setTargetType(EpisodeRecord::class.java)
+    fun crewItemReader(): FlatFileItemReader<CrewRecord> {
+        val mapper = BeanWrapperFieldSetMapper<CrewRecord>()
+        mapper.setTargetType(CrewRecord::class.java)
 
-        return FlatFileItemReaderBuilder<EpisodeRecord>()
-            .name("episodeItemReader")
-            .resource(FileSystemResource(Path.of(sourcePath, episodeZip)))
+        return FlatFileItemReaderBuilder<CrewRecord>()
+            .name("crewItemReader")
+            .resource(FileSystemResource(Path.of(sourcePath, crewZip)))
             .bufferedReaderFactory(gZipBufferedReaderFactory)
             .linesToSkip(1)
             .delimited()
             .delimiter("\t")
-            .quoteCharacter('☀')
-            .names(*episodeHeaders)
+            .quoteCharacter('★')
+            .names(*crewHeaders)
             .fieldSetMapper(mapper)
             .build()
     }
 
     @Bean
-    fun episodeItemProcessor(): ItemProcessor<EpisodeRecord, EpisodeEntity> {
+    fun crewItemProcessor(): ItemProcessor<CrewRecord, CrewEntity> {
         return ItemProcessor { it.toEntity() }
     }
 
     @Bean
-    fun episodeItemWriter(dataSource: DataSource): JdbcBatchItemWriter<EpisodeEntity> {
-        return JdbcBatchItemWriterBuilder<EpisodeEntity>()
+    fun crewItemWriter(dataSource: DataSource): JdbcBatchItemWriter<CrewEntity> {
+        return JdbcBatchItemWriterBuilder<CrewEntity>()
             .itemSqlParameterSourceProvider(BeanPropertyItemSqlParameterSourceProvider())
-            .sql(episodesInsertQuery)
+            .sql(crewInsertQuery)
             .dataSource(dataSource)
             .build()
     }
 
     @Bean
-    fun episodeRecordsJob(listener: JobCompletionNotificationListener, episodeReadStep: Step): Job? {
-        return jobBuilderFactory["episodeRecordsJob"]
+    fun crewRecordsJob(listener: JobCompletionNotificationListener, crewReadStep: Step): Job? {
+        return jobBuilderFactory["crewRecordsJob"]
             .incrementer(RunIdIncrementer())
             .listener(listener)
-            .flow(episodeReadStep)
+            .flow(crewReadStep)
             .end()
             .build()
     }
 
     @Bean
-    fun episodeReadStep(writer: JdbcBatchItemWriter<EpisodeEntity>): Step {
-        return stepBuilderFactory["episodeReadStep"]
-            .chunk<EpisodeRecord, EpisodeEntity>(chunkSize)
-            .reader(episodeItemReader())
-            .processor(episodeItemProcessor())
+    fun crewReadStep(writer: JdbcBatchItemWriter<CrewEntity>): Step {
+        return stepBuilderFactory["crewReadStep"]
+            .chunk<CrewRecord, CrewEntity>(chunkSize)
+            .reader(crewItemReader())
+            .processor(crewItemProcessor())
             .writer(writer)
             .build()
     }

@@ -1,5 +1,10 @@
-package com.unrec.imdb.search.batch
+package com.unrec.imdb.search.config.batch
 
+import com.unrec.imdb.search.batch.GZipBufferedReaderFactory
+import com.unrec.imdb.search.batch.JobCompletionNotificationListener
+import com.unrec.imdb.search.config.batch.constants.nameBasicsHeaders
+import com.unrec.imdb.search.config.batch.constants.nameBasicsInsertQuery
+import com.unrec.imdb.search.config.batch.constants.nameBasicsZip
 import com.unrec.imdb.search.entity.NameBasicsEntity
 import com.unrec.imdb.search.mapper.toEntity
 import com.unrec.imdb.search.model.NameBasicsRecord
