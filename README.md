@@ -8,19 +8,19 @@ The next option was Spring Batch due to ability to use native SQL queries for sa
 
 Here are statistics for processing `basics` dataset. As you can see Spring Batch is about two time faster. Probably we can speed up JPA saving process by migrating to `JdbcTemplate`, but in this case we need to reinvent batch processing for Camel. As per docs Camel itself has support for Spring Batch, but I'm not sure it works well and that it will boost performance so dramatically.
 
-**Whole `basics` dataset - Spring Batch**
+**Spring Batch**, ~30M records, 1023s
 ````
 2021-10-04 15:00:36.411  INFO 11756 --- [           main] .i.s.b.JobCompletionNotificationListener : JOB FINISHED! @ Mon Oct 04 15:00:36 MSK 2021
 2021-10-04 15:00:36.426  INFO 11756 --- [           main] .i.s.b.JobCompletionNotificationListener : started @ Mon Oct 04 14:43:33 MSK 2021, finished @ Mon Oct 04 15:00:36 MSK 2021 }
 2021-10-04 15:00:36.426  INFO 11756 --- [           main] .i.s.b.JobCompletionNotificationListener : job duration = 1023 seconds
 ````
-**3 million of records - Spring Batch**
+**Spring Batch**, 3M records, <span style="color:green">**269s**</span>
 ````
 2021-10-05 15:33:13.717  INFO 7760 --- [           main] .i.s.b.JobCompletionNotificationListener : JOB FINISHED! @ Tue Oct 05 15:33:13 MSK 2021
 2021-10-05 15:33:13.725  INFO 7760 --- [           main] .i.s.b.JobCompletionNotificationListener : started @ Tue Oct 05 15:28:43 MSK 2021, finished @ Tue Oct 05 15:33:13 MSK 2021 }
 2021-10-05 15:33:13.726  INFO 7760 --- [           main] .i.s.b.JobCompletionNotificationListener : job duration = 269 seconds
 ````
-**3 million of records - Apache Camel with JPA batching**
+**Apache Camel**, 3M records, <span style="color:orange">**562s**</span>
 ````
 021-10-05 16:16:02.031 DEBUG 19388 --- [e://C:/imdb/zip] c.u.imdb.search.camel.route.BasicsRoute  : Route started @ 2021-10-05 16:16:02+0300
 2021-10-05 16:16:02.040  INFO 19388 --- [e://C:/imdb/zip] c.u.i.s.camel.processor.GZipProcessor    : Starting to unzip file: C:\imdb\zip\3m_title.basics.tsv.gz
