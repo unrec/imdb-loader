@@ -1,4 +1,4 @@
-package com.unrec.imdb.search.batch
+package com.unrec.imdb.search.config.scheduler
 
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.JobExecution
