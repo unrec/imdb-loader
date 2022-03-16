@@ -7,4 +7,4 @@ data class PrincipalsEntity(
     val category: String,
     val job: String?,
     val characters: String?,
-)
+) : Entity()
