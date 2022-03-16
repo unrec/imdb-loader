@@ -2,8 +2,8 @@ package com.unrec.imdb.search
 
 import com.unrec.imdb.search.entity.BasicsEntity
 import com.unrec.imdb.search.entity.RatingsEntity
-import com.unrec.imdb.search.model.BasicsRecord
-import com.unrec.imdb.search.model.RatingsRecord
+import com.unrec.imdb.search.record.BasicsRecord
+import com.unrec.imdb.search.record.RatingsRecord
 
 object TestDataFactory {
 
