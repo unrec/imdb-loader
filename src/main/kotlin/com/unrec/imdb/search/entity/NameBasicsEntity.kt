@@ -7,4 +7,4 @@ data class NameBasicsEntity(
     val deathYear: Int?,
     val primaryProfession: String?,
     val knownForTitles: String?,
-)
+) : Entity()

@@ -5,4 +5,4 @@ data class EpisodeEntity(
     val parentId: Long,
     val seasonNumber: Int?,
     val episodeNumber: Int?,
-)
+) : Entity()

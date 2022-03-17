@@ -9,4 +9,4 @@ data class AkasEntity(
     val types: String?,
     val attributes: String?,
     val isOriginalTitle: Boolean?,
-)
+) : Entity()
