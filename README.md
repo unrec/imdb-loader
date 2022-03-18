@@ -53,3 +53,15 @@ Here are statistics for processing `basics` dataset. As you can see Spring Batch
 2021-10-05 16:26:10.408  INFO 19388 --- [e://C:/imdb/zip] c.u.i.s.c.p.BasicsRecordsLoadProcessor   : Loading entities to Database took 562473 ms
 2021-10-05 16:26:10.423 DEBUG 19388 --- [e://C:/imdb/zip] c.u.imdb.search.camel.route.BasicsRoute  : Route finished @ 2021-10-05 16:26:10+0300
 ````
+
+**Total statistics for uploading all datasets**:
+
+```
+JOB 'akasRecordsJob' DURATION = 2007 SECONDS
+JOB 'basicsRecordsJob' DURATION = 601 SECONDS
+JOB 'crewRecordsJob' DURATION = 344 SECONDS
+JOB 'episodeRecordsJob' DURATION = 271 SECONDS
+JOB 'nameBasicsRecordsJob' DURATION = 669 SECONDS
+JOB 'principalsRecordsJob' DURATION = 2712 SECONDS
+JOB 'ratingsRecordsJob' DURATION = 49 SECONDS
+```
