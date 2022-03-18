@@ -23,9 +23,6 @@ logging.level:
 spring.config.activate.on-profile: batch
 spring.batch.jdbc.initialize-schema: never
 spring.batch.job.enabled: true
-batch.scheduler:
-  enabled: false
-  cron: "0 0 0 1 * ?"
 imdb:
   basics:
     chunkSize: 10000
