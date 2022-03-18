@@ -63,6 +63,6 @@ object TestDataFactory {
     fun testRatingsEntity() = RatingsEntity(
         titleId = 110912,
         averageRating = 8.9,
-        numVotes = 110912
+        numVotes = 1946783
     )
 }
