@@ -24,28 +24,20 @@ spring.config.activate.on-profile: batch
 spring.batch.jdbc.initialize-schema: never
 spring.batch.job.enabled: true
 imdb:
-  basics:
-    chunkSize: 10000
-    enabled: false
-  ratings:
-    chunkSize: 10000
-    enabled: false
-  crew:
-    chunkSize: 10000
-    enabled: false
   akas:
-    chunkSize: 10000
-    enabled: false
-  principals:
-    chunkSize: 10000
-    enabled: false
-  episode:
-    chunkSize: 10000
-    enabled: false
-  nameBasics:
-    chunkSize: 10000
     enabled: true
-
+  basics:
+    enabled: true
+  crew:
+    enabled: true
+  episode:
+    enabled: true
+  nameBasics:
+    enabled: true
+  principals:
+    enabled: true
+  ratings:
+    enabled: true
 ---
 spring.config.activate.on-profile: dev-pg
 spring:
