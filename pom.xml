@@ -19,8 +19,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>11</java.version>
     <kotlin.version>1.5.20</kotlin.version>
-    <orika-spring-boot.version>1.9.0</orika-spring-boot.version>
-    <orika.version>1.5.4</orika.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
     <embedded-database-spring-test.version>2.0.1</embedded-database-spring-test.version>
     <testcontainers.version>1.15.3</testcontainers.version>
@@ -71,18 +69,6 @@
     <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-csv</artifactId>
-    </dependency>
-
-    <!--mapping-->
-    <dependency>
-      <groupId>net.rakugakibox.spring.boot</groupId>
-      <artifactId>orika-spring-boot-starter</artifactId>
-      <version>${orika-spring-boot.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>ma.glasnost.orika</groupId>
-      <artifactId>orika-core</artifactId>
-      <version>${orika.version}</version>
     </dependency>
 
     <!--etc-->
