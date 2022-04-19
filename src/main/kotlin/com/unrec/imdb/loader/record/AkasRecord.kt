@@ -19,7 +19,7 @@ data class AkasRecord(
             ordering.toInt(),
             title,
             region,
-            language,
+            language.extractNonEmptyValue(),
             types.extractNonEmptyValue(),
             attributes.extractNonEmptyValue(),
             isOriginalTitle.asBoolean()

@@ -1,0 +1,12 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet author="unrec" id="1.8_update `akas` table">
+    <sql dbms="postgresql">
+      ALTER TABLE akas
+      ALTER COLUMN "types" TYPE TEXT USING array_to_string("types",','),
+      ALTER COLUMN "attributes" TYPE TEXT USING array_to_string("attributes",',');
+    </sql>
+  </changeSet>
+</databaseChangeLog>
