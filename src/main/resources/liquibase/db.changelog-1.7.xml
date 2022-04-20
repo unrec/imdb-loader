@@ -2,14 +2,14 @@
   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-  <changeSet author="unrec" id="1.4_create `akas` table">
+  <changeSet author="unrec" id="1.7_create `name_basics` table">
     <sql dbms="postgresql">
       CREATE TABLE name_basics(
       name_id INTEGER NOT NULL,
       primary_name VARCHAR (128),
       birth_year SMALLINT,
       death_year SMALLINT,
-      primary_profession  VARCHAR[],
+      primary_profession VARCHAR[],
       known_for_titles VARCHAR[]);
     </sql>
   </changeSet>
