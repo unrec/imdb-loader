@@ -1,10 +1,10 @@
 package com.unrec.imdb.loader.entity
 
 data class NameBasicsEntity(
-    val nameId: Long,
+    val nameId: Int,
     val primaryName: String,
-    val birthYear: Int?,
-    val deathYear: Int?,
+    val birthYear: Short?,
+    val deathYear: Short?,
     val primaryProfession: String?,
     val knownForTitles: String?,
 ) : Entity()

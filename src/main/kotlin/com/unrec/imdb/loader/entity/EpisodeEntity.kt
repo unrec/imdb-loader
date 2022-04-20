@@ -1,8 +1,8 @@
 package com.unrec.imdb.loader.entity
 
 data class EpisodeEntity(
-    val titleId: Long,
-    val parentId: Long,
-    val seasonNumber: Int?,
+    val titleId: Int,
+    val parentId: Int,
+    val seasonNumber: Short?,
     val episodeNumber: Int?,
 ) : Entity()
