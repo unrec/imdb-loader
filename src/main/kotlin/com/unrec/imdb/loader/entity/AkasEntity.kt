@@ -1,8 +1,8 @@
 package com.unrec.imdb.loader.entity
 
 data class AkasEntity(
-    val titleId: Long,
-    val ordering: Int,
+    val titleId: Int,
+    val ordering: Short,
     val title: String,
     val region: String,
     val language: String?,

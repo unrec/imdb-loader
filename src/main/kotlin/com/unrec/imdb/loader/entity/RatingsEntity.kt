@@ -1,7 +1,7 @@
 package com.unrec.imdb.loader.entity
 
 data class RatingsEntity(
-    val titleId: Long,
-    val averageRating: Double,
+    val titleId: Int,
+    val averageRating: Float,
     val numVotes: Int,
 ) : Entity()
