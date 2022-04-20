@@ -16,13 +16,13 @@ data class BasicsRecord(
 ) : Record {
     override fun toEntity(): Entity {
         return BasicsEntity(
-            tconst.removeLeadingChars().toLong(),
+            tconst.removeLeadingChars().toInt(),
             titleType,
             primaryTitle,
             originalTitle,
             isAdult.asBoolean(),
-            startYear.asInteger(),
-            endYear.asInteger(),
+            startYear.asShort(),
+            endYear.asShort(),
             runtimeMinutes.asInteger(),
             genres
         )

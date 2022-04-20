@@ -13,10 +13,10 @@ data class NameBasicsRecord(
 ) : Record {
     override fun toEntity(): Entity {
         return NameBasicsEntity(
-            nconst.removeLeadingChars().toLong(),
+            nconst.removeLeadingChars().toInt(),
             primaryName,
-            birthYear.asInteger(),
-            birthYear.asInteger(),
+            birthYear.asShort(),
+            birthYear.asShort(),
             primaryProfession.extractNonEmptyValue(),
             knownForTitles.extractNonEmptyValue()?.removeLeadingChars()
         )

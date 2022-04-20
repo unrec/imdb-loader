@@ -10,8 +10,8 @@ data class RatingsRecord(
 ) : Record {
     override fun toEntity(): Entity {
         return RatingsEntity(
-            this.tconst.removeLeadingChars().toLong(),
-            this.averageRating.toDouble(),
+            this.tconst.removeLeadingChars().toInt(),
+            this.averageRating.toFloat(),
             this.numVotes.toInt(),
         )
     }

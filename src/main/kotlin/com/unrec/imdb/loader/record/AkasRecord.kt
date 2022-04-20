@@ -15,8 +15,8 @@ data class AkasRecord(
 ) : Record {
     override fun toEntity(): Entity {
         return AkasEntity(
-            titleId.removeLeadingChars().toLong(),
-            ordering.toInt(),
+            titleId.removeLeadingChars().toInt(),
+            ordering.toShort(),
             title,
             region,
             language.extractNonEmptyValue(),

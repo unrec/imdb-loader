@@ -13,9 +13,9 @@ data class PrincipalsRecord(
 ) : Record {
     override fun toEntity(): Entity {
         return PrincipalsEntity(
-            tconst.removeLeadingChars().toLong(),
-            ordering.asInteger(),
-            nconst.removeLeadingChars().toLong(),
+            tconst.removeLeadingChars().toInt(),
+            ordering.toShort(),
+            nconst.removeLeadingChars().toInt(),
             category,
             job.extractNonEmptyValue(),
             characters.extractNonEmptyValue()

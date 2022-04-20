@@ -11,9 +11,9 @@ data class EpisodeRecord(
 ) : Record {
     override fun toEntity(): Entity {
         return EpisodeEntity(
-            tconst.removeLeadingChars().toLong(),
-            parentTconst.removeLeadingChars().toLong(),
-            seasonNumber.asInteger(),
+            tconst.removeLeadingChars().toInt(),
+            parentTconst.removeLeadingChars().toInt(),
+            seasonNumber.asShort(),
             episodeNumber.asInteger()
         )
     }

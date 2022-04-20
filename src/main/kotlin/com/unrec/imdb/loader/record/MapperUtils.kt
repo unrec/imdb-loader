@@ -21,6 +21,15 @@ fun String.asInteger(): Int? {
     }
 }
 
+fun String.asShort(): Short? {
+    return if (this == "\\N") null else try {
+        this.toShort()
+    } catch (e: NumberFormatException) {
+        throw ConvertException("Incorrect boolean descriptor: $this")
+    }
+}
+
+
 fun String.extractNonEmptyValue() = if (this == "\\N") null else this
 
 fun String.removeLeadingChars() = this.replace(leadingRegex, "")
