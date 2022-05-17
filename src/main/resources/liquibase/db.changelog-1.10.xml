@@ -1,0 +1,13 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet author="unrec" id="1.10_update `name_basics` table">
+    <sql dbms="postgresql">
+      ALTER TABLE name_basics
+      ALTER COLUMN "primary_profession" TYPE TEXT USING array_to_string("primary_profession",','),
+      ALTER COLUMN "known_for_titles" TYPE TEXT USING array_to_string("known_for_titles",',');
+    </sql>
+
+  </changeSet>
+</databaseChangeLog>

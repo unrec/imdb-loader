@@ -1,0 +1,14 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet author="unrec" id="1.11_fix values in `akas` table after type conversion">
+    <sql dbms="postgresql">
+      UPDATE akas
+      SET
+        "types" = regexp_replace("types",'{(.*)}','\1'),
+        "attributes" = regexp_replace("attributes",'{"(.*)"}','\1')
+    </sql>
+
+  </changeSet>
+</databaseChangeLog>
