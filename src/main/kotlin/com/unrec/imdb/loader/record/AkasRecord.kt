@@ -13,16 +13,14 @@ data class AkasRecord(
     var attributes: String = "",
     var isOriginalTitle: String = "",
 ) : Record {
-    override fun toEntity(): Entity {
-        return AkasEntity(
-            titleId.removeLeadingChars().toInt(),
-            ordering.toShort(),
-            title,
-            region,
-            language.extractNonEmptyValue(),
-            types.extractNonEmptyValue(),
-            attributes.extractNonEmptyValue(),
-            isOriginalTitle.asBoolean()
-        )
-    }
+    override fun toEntity(): Entity = AkasEntity(
+        titleId = titleId.removeLeadingChars().toInt(),
+        ordering = ordering.toShort(),
+        title = title,
+        region = region,
+        language = language.extractNonEmptyValue(),
+        types = types.extractNonEmptyValue(),
+        attributes = attributes.extractNonEmptyValue(),
+        isOriginalTitle = isOriginalTitle.asBoolean()
+    )
 }

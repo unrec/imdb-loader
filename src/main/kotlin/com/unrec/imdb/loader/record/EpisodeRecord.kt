@@ -9,12 +9,10 @@ data class EpisodeRecord(
     var seasonNumber: String = "",
     var episodeNumber: String = "",
 ) : Record {
-    override fun toEntity(): Entity {
-        return EpisodeEntity(
-            tconst.removeLeadingChars().toInt(),
-            parentTconst.removeLeadingChars().toInt(),
-            seasonNumber.asShort(),
-            episodeNumber.asInteger()
-        )
-    }
+    override fun toEntity(): Entity = EpisodeEntity(
+        titleId = tconst.removeLeadingChars().toInt(),
+        parentId = parentTconst.removeLeadingChars().toInt(),
+        seasonNumber = seasonNumber.asShort(),
+        episodeNumber = episodeNumber.asInteger()
+    )
 }

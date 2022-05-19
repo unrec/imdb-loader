@@ -8,11 +8,9 @@ data class CrewRecord(
     var directors: String = "",
     var writers: String = ""
 ) : Record {
-    override fun toEntity(): Entity {
-        return CrewEntity(
-            tconst.removeLeadingChars().toInt(),
-            writers.extractNonEmptyValue()?.removeLeadingChars(),
-            directors.extractNonEmptyValue()?.removeLeadingChars()
-        )
-    }
+    override fun toEntity(): Entity = CrewEntity(
+        titleId = tconst.removeLeadingChars().toInt(),
+        directors = writers.extractNonEmptyValue()?.removeLeadingChars(),
+        writers = directors.extractNonEmptyValue()?.removeLeadingChars()
+    )
 }

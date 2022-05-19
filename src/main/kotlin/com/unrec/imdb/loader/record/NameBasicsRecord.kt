@@ -11,14 +11,12 @@ data class NameBasicsRecord(
     var primaryProfession: String = "",
     var knownForTitles: String = "",
 ) : Record {
-    override fun toEntity(): Entity {
-        return NameBasicsEntity(
-            nconst.removeLeadingChars().toInt(),
-            primaryName,
-            birthYear.asShort(),
-            deathYear.asShort(),
-            primaryProfession.extractNonEmptyValue(),
-            knownForTitles.extractNonEmptyValue()?.removeLeadingChars()
-        )
-    }
+    override fun toEntity(): Entity = NameBasicsEntity(
+        nameId = nconst.removeLeadingChars().toInt(),
+        primaryName = primaryName,
+        birthYear = birthYear.asShort(),
+        deathYear = deathYear.asShort(),
+        primaryProfession = primaryProfession.extractNonEmptyValue(),
+        knownForTitles = knownForTitles.extractNonEmptyValue()?.removeLeadingChars()
+    )
 }

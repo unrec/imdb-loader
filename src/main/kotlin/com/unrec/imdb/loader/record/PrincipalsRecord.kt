@@ -11,14 +11,12 @@ data class PrincipalsRecord(
     var job: String = "",
     var characters: String = "",
 ) : Record {
-    override fun toEntity(): Entity {
-        return PrincipalsEntity(
-            tconst.removeLeadingChars().toInt(),
-            ordering.toShort(),
-            nconst.removeLeadingChars().toInt(),
-            category,
-            job.extractNonEmptyValue(),
-            characters.extractNonEmptyValue()
-        )
-    }
+    override fun toEntity(): Entity = PrincipalsEntity(
+        titleId = tconst.removeLeadingChars().toInt(),
+        ordering = ordering.toShort(),
+        nameId = nconst.removeLeadingChars().toInt(),
+        category = category,
+        job = job.extractNonEmptyValue(),
+        characters = characters.extractNonEmptyValue()
+    )
 }
