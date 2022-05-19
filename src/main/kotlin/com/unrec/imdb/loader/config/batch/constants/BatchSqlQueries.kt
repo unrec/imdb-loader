@@ -14,7 +14,8 @@ const val crewInsertQuery = """
 
 const val akaInsertQuery = """
     INSERT INTO akas (title_id, ordering, title, region, language, types,attributes,is_original_title)
-    VALUES(:titleId, :ordering, :title, :region, :language, string_to_array(:types,','), string_to_array(:attributes, ','), :isOriginalTitle)"""
+    VALUES(:titleId, :ordering, :title, :region, :language, :types, :attributes, :isOriginalTitle)
+    """
 
 const val principalsInsertQuery = """
     INSERT INTO principals (title_id, ordering, name_id, category, job, characters)
@@ -27,4 +28,5 @@ const val episodesInsertQuery = """
 
 const val nameBasicsInsertQuery = """
     INSERT INTO name_basics (name_id, primary_name, birth_year, death_year, primary_profession, known_for_titles)
-    VALUES(:nameId, :primaryName, :birthYear, :deathYear, string_to_array(:primaryProfession,','), string_to_array(:knownForTitles, ','))"""
+    VALUES(:nameId, :primaryName, :birthYear, :deathYear, :primaryProfession, :knownForTitles)
+    """
