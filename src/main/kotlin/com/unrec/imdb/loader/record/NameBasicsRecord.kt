@@ -16,7 +16,7 @@ data class NameBasicsRecord(
             nconst.removeLeadingChars().toInt(),
             primaryName,
             birthYear.asShort(),
-            birthYear.asShort(),
+            deathYear.asShort(),
             primaryProfession.extractNonEmptyValue(),
             knownForTitles.extractNonEmptyValue()?.removeLeadingChars()
         )
