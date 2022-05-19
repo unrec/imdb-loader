@@ -1,0 +1,12 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet author="unrec" id="1.12_create index for `name_basics` table">
+    <sql dbms="postgresql">
+      CREATE INDEX idx_name_basics_primary_name_profession
+      ON name_basics(primary_name, primary_profession);
+    </sql>
+
+  </changeSet>
+</databaseChangeLog>
