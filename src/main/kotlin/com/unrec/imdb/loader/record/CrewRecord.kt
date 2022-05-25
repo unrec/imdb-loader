@@ -10,7 +10,7 @@ data class CrewRecord(
 ) : Record {
     override fun toEntity(): Entity = CrewEntity(
         titleId = tconst.removeLeadingChars().toInt(),
-        directors = writers.extractNonEmptyValue()?.removeLeadingChars(),
-        writers = directors.extractNonEmptyValue()?.removeLeadingChars()
+        directors = directors.extractNonEmptyValue()?.removeLeadingChars(),
+        writers = writers.extractNonEmptyValue()?.removeLeadingChars()
     )
 }
