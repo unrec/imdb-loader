@@ -9,5 +9,5 @@ data class BasicsEntity(
     val startYear: Short?,
     val endYear: Short?,
     val runtimeMinutes: Int?,
-    val genres: String,
+    val genres: String?,
 ) : Entity()

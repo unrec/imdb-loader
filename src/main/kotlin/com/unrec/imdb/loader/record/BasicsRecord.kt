@@ -23,6 +23,6 @@ data class BasicsRecord(
         startYear = startYear.asShort(),
         endYear = endYear.asShort(),
         runtimeMinutes = runtimeMinutes.asInteger(),
-        genres = genres
+        genres = genres.extractNonEmptyValue()
     )
 }
