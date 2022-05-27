@@ -1,0 +1,26 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet author="unrec" id="1.13_create `movies_view` materialized view">
+    <sql dbms="postgresql">
+      CREATE MATERIALIZED VIEW movies_view AS
+      SELECT b.title_id, b.title_type, b.primary_title, b.start_year, b.runtime_minutes, directors_sq.directors, writers_sq.writers, b.genres, r.average_rating, r.num_votes
+      FROM basics b
+      LEFT JOIN crew c USING(title_id)
+      LEFT JOIN ratings r USING(title_id)
+      LEFT JOIN
+        (SELECT c.title_id, string_agg(nb.primary_name, ',') AS directors
+        FROM crew c
+        JOIN name_basics nb ON nb.name_id = ANY (string_to_array(c.directors, ',')::int[])
+        GROUP BY title_id) AS directors_sq USING(title_id)
+      LEFT JOIN
+        (SELECT c.title_id, string_agg(nb.primary_name, ',') AS writers
+        FROM crew c
+        JOIN name_basics nb ON nb.name_id = ANY (string_to_array(c.writers , ',')::int[])
+        GROUP BY title_id) AS writers_sq USING(title_id)
+      WHERE b.title_type IN ('movie','tvMovie');
+    </sql>
+
+  </changeSet>
+</databaseChangeLog>
