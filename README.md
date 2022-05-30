@@ -1,5 +1,30 @@
 # imdb-loader
 
+### Prior configuration
+
+1. Datasets can be downloaded [here](https://www.imdb.com/interfaces/). Download all required datasets in target folder, e.g. `C:/imdb/zip`, and add the path to the config:
+```yaml
+imdb.source: "C:/imdb/zip"
+```
+It is possible to select which datasets will be loaded as well:
+```yaml
+imdb:
+  akas:
+    enabled: false
+  crew:
+    enabled: true
+```
+2. Initialize the PostgreSQL database where the data is to be loaded, e.g. `imdb` database and add configs in `application.yml`:
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/imdb
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+```
+3. Run the application with profile `dev-pg`.
+---
 ### Apache Camel vs. Spring Batch
 
 Initially Apache Camel was selected as core framework for ETL process due to its simplicity and flexibility. When it started to process huge amount of data some problems occurred due to usage of JPA. Even using batch saving it takes a lot of time to load IMDb datasets in SQL Database.
