@@ -1,0 +1,17 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet author="unrec" id="1.14_create indices for `tvSeries` search">
+    <sql dbms="postgresql">
+      CREATE INDEX idx_basics_title_id_runtime
+      ON basics(title_id, runtime_minutes);
+    </sql>
+
+    <sql dbms="postgresql">
+      CREATE INDEX idx_episodes_parent_id_season_number
+      ON episodes(parent_id, season_number);
+    </sql>
+
+  </changeSet>
+</databaseChangeLog>
