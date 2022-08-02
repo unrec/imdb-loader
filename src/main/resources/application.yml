@@ -42,7 +42,7 @@ imdb:
 spring.config.activate.on-profile: dev-pg
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/imdb
+    url: jdbc:postgresql://localhost:5438/imdb
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver

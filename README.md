@@ -6,6 +6,12 @@
 ```yaml
 imdb.source: "C:/imdb/zip"
 ```
+
+or 
+
+```yaml
+imdb.source: "/Users/unrec/Documents/imdb/zip"
+```
 It is possible to select which datasets will be loaded as well:
 ```yaml
 imdb:
@@ -23,6 +29,8 @@ spring:
     password: root
     driver-class-name: org.postgresql.Driver
 ```
+Here is [docker-compose.yml](docker-compose.yml) for creating a database container in Docker.
+
 3. Run the application with profile `dev-pg`.
 ---
 ### Apache Camel vs. Spring Batch
