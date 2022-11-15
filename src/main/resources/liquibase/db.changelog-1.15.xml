@@ -1,0 +1,12 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+  <changeSet author="unrec" id="1.15_create index for `name_basics` required for materialized view">
+    <sql dbms="postgresql">
+      CREATE INDEX idx_name_basics_name_id_primary_name
+      on name_basics(name_id, primary_name);
+    </sql>
+
+  </changeSet>
+</databaseChangeLog>
